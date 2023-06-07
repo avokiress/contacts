@@ -7,38 +7,49 @@ import {GroupContactsDto} from 'src/types/dto/GroupContactsDto';
 import {GroupContactsCard} from 'src/components/GroupContactsCard';
 import {Empty} from 'src/components/Empty';
 import {ContactCard} from 'src/components/ContactCard';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { getGroupByIdAction } from 'src/redux/groupReducer';
 
-export const GroupPage = memo<CommonPageProps>(({
-  contactsState,
-  groupContactsState
-}) => {
+interface IGroupInitialState {
+  [key: string]: GroupContactsDto,
+}
+
+export const GroupPage = memo<CommonPageProps>(({ contactsState, groupContactsState, favoriteContactsState }) => {
   const {groupId} = useParams<{ groupId: string }>();
-  const [contacts, setContacts] = useState<ContactDto[]>([]);
-  const [groupContacts, setGroupContacts] = useState<GroupContactsDto>();
+  // const [contacts, setContacts] = useState<ContactDto[]>([]);
+  // const [groupContacts, setGroupContacts] = useState<GroupContactsDto>();
+  const dispatch = useAppDispatch()
+  const group: IGroupInitialState = useAppSelector(state => state.group)
 
   useEffect(() => {
-    const findGroup = groupContactsState[0].find(({id}) => id === groupId);
-    setGroupContacts(findGroup);
-    setContacts(() => {
-      if (findGroup) {
-        return contactsState[0].filter(({id}) => findGroup.contactIds.includes(id))
-      }
-      return [];
-    });
+    // const findGroup = groupContactsState[0].find(({id}) => id === groupId);
+    // setGroupContacts(findGroup);
+    // setContacts(() => {
+    //   if (findGroup) {
+    //     return contactsState[0].filter(({id}) => findGroup.contactIds.includes(id))
+    //   }
+    //   return [];
+    // });
+    if (!groupId) return;
+    dispatch(getGroupByIdAction(groupId))
   }, [groupId]);
+
+  if (!groupId) return null;
+  if (!group || !group[groupId]) return null;
+
 
   return (
     <Row className="g-4">
-      {groupContacts ? (
+      {group ? (
         <>
           <Col xxl={12}>
             <Row xxl={3}>
               <Col className="mx-auto">
-                <GroupContactsCard groupContacts={groupContacts} />
+                <GroupContactsCard groupContacts={group[groupId]} />
               </Col>
             </Row>
           </Col>
-          <Col>
+          {/* <Col>
             <Row xxl={4} className="g-4">
               {contacts.map((contact) => (
                 <Col key={contact.id}>
@@ -46,7 +57,7 @@ export const GroupPage = memo<CommonPageProps>(({
                 </Col>
               ))}
             </Row>
-          </Col>
+          </Col> */}
         </>
       ) : <Empty />}
     </Row>
