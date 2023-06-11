@@ -10,17 +10,21 @@ export const contactsSlice = createSlice({
   initialState: initialContacts,
   reducers: {
     getFilterContactsByGroupAction(state, action: PayloadAction<ContactDto['id'][]>) {
-      if (!action.payload.length) {
-        return state = initialContacts;
-      }
       return state = initialContacts.filter(({ id }) => (
         action.payload.includes(id)
       ))
     },
     resetFilterContactsByGroupAction(state) {
       return state = initialContacts;
+    },
+    getContactByNameAction(state, action: PayloadAction<string>) {
+      const contactName = action.payload.toLowerCase();
+      if (!contactName.length) return initialContacts;
+      return state = initialContacts.filter(({ name }) => (
+        name.toLowerCase().indexOf(contactName) > -1
+      ))
     }
   },
 })
 
-export const { getFilterContactsByGroupAction, resetFilterContactsByGroupAction } = contactsSlice.actions;
+export const { getFilterContactsByGroupAction, resetFilterContactsByGroupAction, getContactByNameAction } = contactsSlice.actions;
