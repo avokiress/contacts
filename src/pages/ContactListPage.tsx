@@ -7,7 +7,7 @@ import {ContactDto} from 'src/types/dto/ContactDto';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
 import { getGroupByIdAction } from 'src/redux/groupReducer';
-import { getFilterContactsByGroupAction } from 'src/redux/contactsReducer';
+import { getFilterContactsByGroupAction, resetFilterContactsByGroupAction } from 'src/redux/contactsReducer';
 
 interface IGroupInitialState {
   [key: string]: GroupContactsDto,
@@ -39,8 +39,12 @@ export const ContactListPage = memo(() => {
   useEffect(() => {
     if (!group || !groupIdState) return;
 
-    const { contactIds = [] } = group[groupIdState];
-    dispatch(getFilterContactsByGroupAction(contactIds))
+    if (!group[groupIdState]) {
+      dispatch(resetFilterContactsByGroupAction())
+    } else {
+      const { contactIds = [] } = group[groupIdState];
+      dispatch(getFilterContactsByGroupAction(contactIds))
+    }
   }, [groupIdState])
 
 

@@ -10,13 +10,17 @@ export const contactsSlice = createSlice({
   initialState: initialContacts,
   reducers: {
     getFilterContactsByGroupAction(state, action: PayloadAction<ContactDto['id'][]>) {
-      if (!action.payload.length) return;
-
+      if (!action.payload.length) {
+        return state = initialContacts;
+      }
       return state = initialContacts.filter(({ id }) => (
         action.payload.includes(id)
       ))
+    },
+    resetFilterContactsByGroupAction(state) {
+      return state = initialContacts;
     }
   },
 })
 
-export const { getFilterContactsByGroupAction } = contactsSlice.actions;
+export const { getFilterContactsByGroupAction, resetFilterContactsByGroupAction } = contactsSlice.actions;
