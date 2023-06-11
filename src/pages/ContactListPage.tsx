@@ -1,37 +1,33 @@
-import React, {memo, useEffect, useState} from 'react';
-import {CommonPageProps} from './types';
+import {useEffect, useState} from 'react';
+import { observer } from 'mobx-react-lite'
 import {Col, Row} from 'react-bootstrap';
 import {ContactCard} from 'src/components/ContactCard';
 import {FilterForm, FilterFormValues} from 'src/components/FilterForm';
 import {ContactDto} from 'src/types/dto/ContactDto';
-import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
-import { getGroupByIdAction } from 'src/_redux/groupReducer';
-import { getFilterContactsByGroupAction, resetFilterContactsByGroupAction, getContactByNameAction } from 'src/_redux/contactsReducer';
+import { store } from 'src/store/store';
 
-interface IGroupInitialState {
-  [key: string]: GroupContactsDto,
-}
+export const ContactListPage = observer(() => {
+  const contacts = store.contacts;
+  const groupList = store.groups;
+  const group = store.group;
 
-export const ContactListPage = memo(() => {
-  const contacts: ContactDto[] = useAppSelector(state => state.contacts);
-  const groupList: GroupContactsDto[] = useAppSelector(state => state.groups)
-  const group: IGroupInitialState = useAppSelector(state => state.group)
-
-  const dispatch = useAppDispatch();
   const [contactsState, setContacts] = useState<ContactDto[]>(contacts)
   const [groupIdState, setGroupIdState] = useState<string>('')
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
     const { groupId, name: contactName } = fv;
-    
+
+    if (!groupId) {
+      store.resetFilterContactsByGroupAction()
+    }
+
     if (groupId) {
       setGroupIdState(groupId);
-      dispatch(getGroupByIdAction(groupId));
+      store.getContactsGroupByIdAction(groupId);
     }
 
     if (contactName || contactName === '') {
-      dispatch(getContactByNameAction(contactName));
+      store.getContactByNameAction(contactName)
     }
   }
 
@@ -44,13 +40,13 @@ export const ContactListPage = memo(() => {
   useEffect(() => {
     if (!group || !groupIdState) return;
 
-    if (!group[groupIdState]) {
-      dispatch(resetFilterContactsByGroupAction())
+    if (!groupIdState) {
+      store.resetFilterContactsByGroupAction();
     } else {
-      const { contactIds = [] } = group[groupIdState];
-      dispatch(getFilterContactsByGroupAction(contactIds))
+      const { contactIds = [] } = group;
+      store.getFilterContactsByGroupAction(contactIds)
     }
-  }, [groupIdState])
+  }, [groupIdState, group])
 
 
   return (

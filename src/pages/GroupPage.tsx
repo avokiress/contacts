@@ -1,44 +1,36 @@
-import React, { memo, useEffect } from 'react';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite'
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { ContactDto } from 'src/types/dto/ContactDto';
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
 import { GroupContactsCard } from 'src/components/GroupContactsCard';
 import { Empty } from 'src/components/Empty';
 import { ContactCard } from 'src/components/ContactCard';
-import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
-import { getGroupByIdAction } from 'src/_redux/groupReducer';
-import { getFilterContactsByGroupAction } from 'src/_redux/contactsReducer';
+import { store } from 'src/store/store';
 
-interface IGroupInitialState {
-  [key: string]: GroupContactsDto,
-}
-
-export const GroupPage = memo(() => {
+export const GroupPage = observer(() => {
   const { groupId } = useParams<{ groupId: string }>();
 
-  const dispatch = useAppDispatch()
-  const group: IGroupInitialState = useAppSelector(state => state.group)
-  const contacts: ContactDto[] = useAppSelector(state => state.contacts);
+  const { group, contacts } = store
+  // const contacts = store.contacts;
+
 
   useEffect(() => {
     if (!groupId) return;
-    dispatch(getGroupByIdAction(groupId))
+
+    store.getGroupByIdAction(groupId)
   }, [groupId]);
 
   useEffect(() => {
-    if (!groupId) return;
-    if (group[groupId]) {
-      const { contactIds = [] } = group[groupId];
-      if (contactIds.length) {
-        dispatch(getFilterContactsByGroupAction(contactIds))
-      }
+    if (!group) return;
+
+    const { contactIds = [] } = group;
+    if (contactIds.length) {
+      store.getFilterContactsByGroupAction(contactIds)
     }
   }, [group]);
 
 
   if (!groupId) return null;
-  if (!group || !group[groupId]) return null;
 
 
   return (
@@ -48,7 +40,7 @@ export const GroupPage = memo(() => {
           <Col xxl={12}>
             <Row xxl={3}>
               <Col className="mx-auto">
-                <GroupContactsCard groupContacts={group[groupId]} />
+                <GroupContactsCard groupContacts={group} />
               </Col>
             </Row>
           </Col>

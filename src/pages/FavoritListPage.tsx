@@ -1,19 +1,15 @@
-import React, {memo, useEffect} from 'react';
-import {Col, Row} from 'react-bootstrap';
-import {ContactCard} from 'src/components/ContactCard';
-import { getFilterContactsByGroupAction } from 'src/_redux/contactsReducer';
-import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
-import { ContactDto } from 'src/types/dto/ContactDto';
-import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite'
+import { Col, Row } from 'react-bootstrap';
+import { ContactCard } from 'src/components/ContactCard';
+import { store } from 'src/store/store';
 
-export const FavoritListPage = memo(() => {
-  const contacts: ContactDto[] = useAppSelector(state => state.contacts);
-  const favorite: FavoriteContactsDto = useAppSelector(state => state.favorite);
-
-  const dispatch = useAppDispatch();
+export const FavoritListPage = observer(() => {
+  const favorite = store.favorite;
+  const contacts = store.contacts;
 
   useEffect(() => {
-    dispatch(getFilterContactsByGroupAction(favorite))
+    store.getFilterContactsByGroupAction(favorite)
   }, []);
 
   return (

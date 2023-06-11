@@ -1,34 +1,28 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
+import { observer } from 'mobx-react-lite'
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
-import {ContactDto} from 'src/types/dto/ContactDto';
 import {ContactCard} from 'src/components/ContactCard';
 import {Empty} from 'src/components/Empty';
-import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
-import { getContactByIdAction } from 'src/_redux/contactReducer';
+import { store } from 'src/store/store';
 
-interface IContactInitialState {
-  [key: string]: ContactDto,
-}
-
-export const ContactPage = () => {
+export const ContactPage = observer(() => {
   const {contactId} = useParams<{ contactId: string }>();
-  const contact: IContactInitialState = useAppSelector(state => state.contact)
+  const contact = store.contact;
 
-  const dispatch = useAppDispatch();
   useEffect(() => {
     if (!contactId) return;
-    dispatch(getContactByIdAction(contactId));
+    store.getContactByIdAction(contactId);
   }, [contactId]);
 
   if (!contactId) return null;
-  if (!contact || !contact[contactId]) return null;
+  if (!contact || !contact) return null;
 
   return (
     <Row xxl={3}>
       <Col className={'mx-auto'}>
-        {contact ? <ContactCard contact={contact[contactId]} /> : <Empty />}
+        {contact ? <ContactCard contact={contact} /> : <Empty />}
       </Col>
     </Row>
   );
-};
+});

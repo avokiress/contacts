@@ -41,7 +41,7 @@ export const FilterForm = memo<FilterFormProps>(({
                 aria-label="Поиск по группе"
                 onChange={handleChange}
               >
-                <option>Open this select menu</option>
+                <option value=''>Open this select menu</option>
                 {groupContactsList.map((groupContacts) => (
                   <option value={groupContacts.id} key={groupContacts.id}>{groupContacts.name}</option>
                 ))}
