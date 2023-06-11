@@ -1,5 +1,5 @@
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { DATA_GROUP_CONTACT } from 'src/__data__';
 
@@ -10,5 +10,3 @@ export const groupsSlice = createSlice({
   initialState: initialGroups,
   reducers: {},
 })
-
-// export const { getGroupList } = groupsSlice.actions;

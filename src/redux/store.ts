@@ -1,3 +1,4 @@
+import { contactsSlice } from './contactsReducer';
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { groupsSlice } from "./groupsReducer";
@@ -8,6 +9,7 @@ import { logActionMiddleware } from "./logActionMiddleware";
 const rootReducer = combineReducers({
   groups: groupsSlice.reducer,
   group: groupSlice.reducer,
+  contacts: contactsSlice.reducer,
 });
 
 export const store = configureStore({
