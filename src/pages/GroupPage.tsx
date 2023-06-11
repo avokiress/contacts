@@ -17,6 +17,7 @@ interface IGroupInitialState {
 
 export const GroupPage = memo(() => {
   const { groupId } = useParams<{ groupId: string }>();
+
   const dispatch = useAppDispatch()
   const group: IGroupInitialState = useAppSelector(state => state.group)
   const contacts: ContactDto[] = useAppSelector(state => state.contacts);

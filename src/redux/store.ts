@@ -4,12 +4,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { groupsSlice } from "./groupsReducer";
 import { groupSlice } from "./groupReducer";
 import { logActionMiddleware } from "./logActionMiddleware";
+import { favoriteSlice } from './favoriteReducer';
 
 
 const rootReducer = combineReducers({
   groups: groupsSlice.reducer,
   group: groupSlice.reducer,
   contacts: contactsSlice.reducer,
+  favorite: favoriteSlice.reducer,
 });
 
 export const store = configureStore({

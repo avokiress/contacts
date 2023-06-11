@@ -51,11 +51,7 @@ export const MainApp = () => {
               } />
             </Route>
             <Route path="favorit" element={
-              <FavoritListPage
-                contactsState={contactsState}
-                favoriteContactsState={favoriteContactsState}
-                groupContactsState={groupContactsState}
-              />
+              <FavoritListPage />
             } />
           </Route>
         </Routes>
