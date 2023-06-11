@@ -6,9 +6,9 @@ import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
 import { GroupContactsCard } from 'src/components/GroupContactsCard';
 import { Empty } from 'src/components/Empty';
 import { ContactCard } from 'src/components/ContactCard';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { getGroupByIdAction } from 'src/redux/groupReducer';
-import { getFilterContactsByGroupAction } from 'src/redux/contactsReducer';
+import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
+import { getGroupByIdAction } from 'src/_redux/groupReducer';
+import { getFilterContactsByGroupAction } from 'src/_redux/contactsReducer';
 
 interface IGroupInitialState {
   [key: string]: GroupContactsDto,

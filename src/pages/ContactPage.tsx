@@ -4,8 +4,8 @@ import {useParams} from 'react-router-dom';
 import {ContactDto} from 'src/types/dto/ContactDto';
 import {ContactCard} from 'src/components/ContactCard';
 import {Empty} from 'src/components/Empty';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { getContactByIdAction } from 'src/redux/contactReducer';
+import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
+import { getContactByIdAction } from 'src/_redux/contactReducer';
 
 interface IContactInitialState {
   [key: string]: ContactDto,

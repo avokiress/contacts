@@ -1,8 +1,8 @@
 import React, {memo, useEffect} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import {ContactCard} from 'src/components/ContactCard';
-import { getFilterContactsByGroupAction } from 'src/redux/contactsReducer';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { getFilterContactsByGroupAction } from 'src/_redux/contactsReducer';
+import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto';
 

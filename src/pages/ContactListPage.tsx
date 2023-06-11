@@ -4,10 +4,10 @@ import {Col, Row} from 'react-bootstrap';
 import {ContactCard} from 'src/components/ContactCard';
 import {FilterForm, FilterFormValues} from 'src/components/FilterForm';
 import {ContactDto} from 'src/types/dto/ContactDto';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/_redux/hooks';
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
-import { getGroupByIdAction } from 'src/redux/groupReducer';
-import { getFilterContactsByGroupAction, resetFilterContactsByGroupAction, getContactByNameAction } from 'src/redux/contactsReducer';
+import { getGroupByIdAction } from 'src/_redux/groupReducer';
+import { getFilterContactsByGroupAction, resetFilterContactsByGroupAction, getContactByNameAction } from 'src/_redux/contactsReducer';
 
 interface IGroupInitialState {
   [key: string]: GroupContactsDto,
