@@ -24,7 +24,7 @@ export const ContactListPage = memo(() => {
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
     const { groupId, name: contactName } = fv;
-
+    
     if (groupId) {
       setGroupIdState(groupId);
       dispatch(getGroupByIdAction(groupId));
