@@ -16,7 +16,9 @@ export const groupSlice = createSlice({
     getGroupByIdAction(state, action: PayloadAction<GroupContactsDto['id']>) {
       if (!action.payload) return;
       const groupById: GroupContactsDto = groupsState.filter(g => g.id === action.payload)[0]
-      state[action.payload] = groupById;
+      if (!state[action.payload]) {
+        state[action.payload] = groupById;
+      }
     },
   },
 })
