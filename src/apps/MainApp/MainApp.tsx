@@ -28,50 +28,26 @@ export const MainApp = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={
-              <ContactListPage
-                contactsState={contactsState}
-                favoriteContactsState={favoriteContactsState}
-                groupContactsState={groupContactsState}
-              />
+              <ContactListPage />
             } />
             <Route path="contact">
               <Route index element={
-                <ContactListPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <ContactListPage />
               } />
               <Route path=":contactId" element={
-                <ContactPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <ContactPage />
               } />
             </Route>
             <Route path="groups">
               <Route index element={
-                <GroupListPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <GroupListPage />
               } />
               <Route path=":groupId" element={
-                <GroupPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <GroupPage />
               } />
             </Route>
             <Route path="favorit" element={
-              <FavoritListPage
-                contactsState={contactsState}
-                favoriteContactsState={favoriteContactsState}
-                groupContactsState={groupContactsState}
-              />
+              <FavoritListPage />
             } />
           </Route>
         </Routes>

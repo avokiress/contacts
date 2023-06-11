@@ -1,26 +1,33 @@
-import React, {FC, useEffect, useState} from 'react';
-import {CommonPageProps} from './types';
+import React, {FC, useEffect} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
 import {ContactDto} from 'src/types/dto/ContactDto';
 import {ContactCard} from 'src/components/ContactCard';
 import {Empty} from 'src/components/Empty';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { getContactByIdAction } from 'src/redux/contactReducer';
 
+interface IContactInitialState {
+  [key: string]: ContactDto,
+}
 
-export const ContactPage: FC<CommonPageProps> = ({
-  contactsState
-}) => {
+export const ContactPage = () => {
   const {contactId} = useParams<{ contactId: string }>();
-  const [contact, setContact] = useState<ContactDto>();
+  const contact: IContactInitialState = useAppSelector(state => state.contact)
 
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    setContact(() => contactsState[0].find(({id}) => id === contactId));
+    if (!contactId) return;
+    dispatch(getContactByIdAction(contactId));
   }, [contactId]);
+
+  if (!contactId) return null;
+  if (!contact || !contact[contactId]) return null;
 
   return (
     <Row xxl={3}>
       <Col className={'mx-auto'}>
-        {contact ? <ContactCard contact={contact} /> : <Empty />}
+        {contact ? <ContactCard contact={contact[contactId]} /> : <Empty />}
       </Col>
     </Row>
   );
