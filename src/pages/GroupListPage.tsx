@@ -1,12 +1,14 @@
-import React, {memo} from 'react';
-import {CommonPageProps} from './types';
-import {Col, Row} from 'react-bootstrap';
-import {GroupContactsCard} from 'src/components/GroupContactsCard';
+import { observer } from 'mobx-react-lite'
+import { Col, Row } from 'react-bootstrap';
+import { GroupContactsCard } from 'src/components/GroupContactsCard';
+import { store } from 'src/store/store';
 
-export const GroupListPage = memo<CommonPageProps>(({contactsState, groupContactsState}) => {
+export const GroupListPage = observer(() => {
+  const groupList = store.groups;
+
   return (
     <Row xxl={4}>
-      {groupContactsState[0].map((groupContacts) => (
+      {groupList.map((groupContacts) => (
         <Col key={groupContacts.id}>
           <GroupContactsCard groupContacts={groupContacts} withLink />
         </Col>

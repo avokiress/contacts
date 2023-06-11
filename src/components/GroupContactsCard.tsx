@@ -14,7 +14,7 @@ export const GroupContactsCard = memo<GroupContactsCardProps>(({
       name,
       description,
       photo,
-      contactIds
+      contactIds = [],
     }, withLink
   }) => {
     return (

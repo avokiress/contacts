@@ -1,21 +1,22 @@
-import React, {FC, useEffect, useState} from 'react';
-import {CommonPageProps} from './types';
+import {useEffect} from 'react';
+import { observer } from 'mobx-react-lite'
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
-import {ContactDto} from 'src/types/dto/ContactDto';
 import {ContactCard} from 'src/components/ContactCard';
 import {Empty} from 'src/components/Empty';
+import { store } from 'src/store/store';
 
-
-export const ContactPage: FC<CommonPageProps> = ({
-  contactsState
-}) => {
+export const ContactPage = observer(() => {
   const {contactId} = useParams<{ contactId: string }>();
-  const [contact, setContact] = useState<ContactDto>();
+  const contact = store.contact;
 
   useEffect(() => {
-    setContact(() => contactsState[0].find(({id}) => id === contactId));
+    if (!contactId) return;
+    store.getContactByIdAction(contactId);
   }, [contactId]);
+
+  if (!contactId) return null;
+  if (!contact || !contact) return null;
 
   return (
     <Row xxl={3}>
@@ -24,4 +25,4 @@ export const ContactPage: FC<CommonPageProps> = ({
       </Col>
     </Row>
   );
-};
+});
