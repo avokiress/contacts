@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
 import {ContactDto} from 'src/types/dto/ContactDto';
