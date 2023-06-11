@@ -14,7 +14,7 @@ interface IGroupInitialState {
   [key: string]: GroupContactsDto,
 }
 
-export const GroupPage = memo<CommonPageProps>(({ contactsState, groupContactsState, favoriteContactsState }) => {
+export const GroupPage = memo(() => {
   const {groupId} = useParams<{ groupId: string }>();
   // const [contacts, setContacts] = useState<ContactDto[]>([]);
   // const [groupContacts, setGroupContacts] = useState<GroupContactsDto>();

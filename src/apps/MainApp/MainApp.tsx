@@ -52,18 +52,10 @@ export const MainApp = () => {
             </Route>
             <Route path="groups">
               <Route index element={
-                <GroupListPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <GroupListPage />
               } />
               <Route path=":groupId" element={
-                <GroupPage
-                  contactsState={contactsState}
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <GroupPage />
               } />
             </Route>
             <Route path="favorit" element={
