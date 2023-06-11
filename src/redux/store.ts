@@ -5,12 +5,14 @@ import { groupsSlice } from "./groupsReducer";
 import { groupSlice } from "./groupReducer";
 import { logActionMiddleware } from "./logActionMiddleware";
 import { favoriteSlice } from './favoriteReducer';
+import { contactSlice } from './contactReducer';
 
 
 const rootReducer = combineReducers({
   groups: groupsSlice.reducer,
   group: groupSlice.reducer,
   contacts: contactsSlice.reducer,
+  contact: contactSlice.reducer,
   favorite: favoriteSlice.reducer,
 });
 

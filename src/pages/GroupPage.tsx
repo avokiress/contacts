@@ -1,5 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
-import { CommonPageProps } from './types';
+import React, { memo, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { ContactDto } from 'src/types/dto/ContactDto';
